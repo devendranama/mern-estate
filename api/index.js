@@ -22,9 +22,14 @@ mongoose
 const __dirname = path.resolve();
 
 const app = express();
+app.use(cors()); // Use the CORS middleware
+// Middleware to set COOP and COEP headers
+app.use((req, res, next) => {
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin'); // or 'same-origin-allow-popups' if using popups
+  res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp'); // required for some cross-origin requests
+  next();
+});
 
-// Enable CORS for all routes
-app.use(cors());
 
 app.use(express.json());
 app.use(cookieParser());
@@ -43,6 +48,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
 
+// Error handling middleware
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Internal Server Error';
