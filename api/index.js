@@ -6,6 +6,8 @@ import authRouter from './routes/auth.route.js';
 import listingRouter from './routes/listing.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import cors from 'cors';  // Import the cors module
+
 dotenv.config();
 
 mongoose
@@ -39,7 +41,11 @@ app.use('/api/listing', listingRouter);
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 // })
+app.use(cors()); // Enable CORS for all routes
 
+app.use(cors({
+  origin: 'https://mern-estatefrontend-devendras-projects-b81dd99f.vercel.app',
+}))
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Internal Server Error';
