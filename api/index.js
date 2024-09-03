@@ -8,6 +8,8 @@ import cookieParser from 'cookie-parser';
 import path from 'path';
 import cors from 'cors';  // Import the cors module
 
+
+
 dotenv.config();
 mongoose
 .connect(process.env.MONGO)
@@ -24,6 +26,12 @@ mongoose
 const app = express();
 
 app.use(express.json());
+// Use CORS middleware to allow all origins
+app.use(cors({
+  origin: '*', // Allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use(cookieParser());
 
@@ -42,12 +50,6 @@ app.use('/api/listing', listingRouter);
 //   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 // })
 
-// Use CORS middleware to allow all origins
-app.use(cors({
-  origin: '*', // Allow all origins
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
