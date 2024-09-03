@@ -28,7 +28,7 @@ const app = express();
 app.use(express.json());
 // Use CORS middleware to allow all origins
 app.use(cors({
-  origin: '*', // Allow all origins
+  origin: 'https://mern-estatefrontend-devendras-projects-b81dd99f.vercel.app/', // Allow all origins
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
