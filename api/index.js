@@ -9,11 +9,11 @@ import path from 'path';
 import cors from 'cors';  // Import the cors module
 
 dotenv.config();
-
 mongoose
-  .connect(process.env.MONGO)
-  .then(() => {
-    console.log('Connected to MongoDB!');
+.connect(process.env.MONGO)
+.then(() => {
+  console.log('Connected to MongoDB!');
+
   })
   .catch((err) => {
     console.log(err);
@@ -41,11 +41,14 @@ app.use('/api/listing', listingRouter);
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 // })
-app.use(cors()); // Enable CORS for all routes
 
+// Use CORS middleware
 app.use(cors({
-  origin: 'https://mern-estatefrontend-devendras-projects-b81dd99f.vercel.app',
-}))
+  origin: 'https://mern-estatefrontend-devendras-projects-b81dd99f.vercel.app', // Allow your frontend origin
+  //https://mern-estatefrontend-devendras-projects-b81dd99f.vercel.app/
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Internal Server Error';
