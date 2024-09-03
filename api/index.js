@@ -42,13 +42,13 @@ app.use('/api/listing', listingRouter);
 //   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 // })
 
-// Use CORS middleware
+// Use CORS middleware to allow all origins
 app.use(cors({
-  origin: 'https://mern-estatefrontend-devendras-projects-b81dd99f.vercel.app', // Allow your frontend origin
-  //https://mern-estatefrontend-devendras-projects-b81dd99f.vercel.app/
+  origin: '*', // Allow all origins
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Internal Server Error';
