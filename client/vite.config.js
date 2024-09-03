@@ -11,6 +11,8 @@ export default {
   //     },
   //   },
   // },
+  //just checkig
+  
   plugins: [react()],
 };
 
